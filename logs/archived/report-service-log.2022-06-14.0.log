@@ -1,0 +1,30 @@
+2022-06-14 07:56:41 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 5304 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-14 07:56:41 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-14 07:56:41 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-06-14 07:56:41 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-06-14 07:56:43 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-14 07:56:43 [restartedMain] WARN  o.s.b.w.r.c.AnnotationConfigReactiveWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8085 is already in use
+2022-06-14 07:56:46 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-06-14 07:56:46 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8085 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8085 or configure this application to listen on another port.
+
+2022-06-14 07:57:24 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 7384 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-14 07:57:24 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-14 07:57:24 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-06-14 07:57:24 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-06-14 07:57:26 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-14 07:57:27 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-14 07:57:27 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 3.083 seconds (JVM running for 4.939)

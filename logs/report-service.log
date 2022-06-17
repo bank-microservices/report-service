@@ -1,0 +1,885 @@
+2022-06-17 13:06:27 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 8208 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 13:06:27 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 13:06:27 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-06-17 13:06:27 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-06-17 13:06:28 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 13:06:29 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 13:06:29 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 2.604 seconds (JVM running for 4.069)
+2022-06-17 13:07:51 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Credit by accountNumber: 12208640102837
+2022-06-17 13:07:51 [reactor-http-nio-3] INFO  c.n.m.r.proxy.impl.CreditProxyImpl - Status code : 404
+2022-06-17 13:07:51 [reactor-http-nio-3] ERROR c.n.m.r.e.GlobalErrorHandler - Exception caught in handleCreditException :  There is Credit not available: 12208640102837  
+com.nttdata.microservices.report.exception.CreditNotFoundException: There is Credit not available: 12208640102837 
+	at com.nttdata.microservices.report.proxy.impl.CreditProxyImpl.applyError4xx(CreditProxyImpl.java:63)
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ 404 from GET http://localhost:8082/api/v1/credit/account-number/12208640102837 [DefaultWebClient]
+	*__checkpoint ⇢ Handler com.nttdata.microservices.report.controller.ReportController#getBalanceCredit(String) [DispatcherHandler]
+Original Stack Trace:
+		at com.nttdata.microservices.report.proxy.impl.CreditProxyImpl.applyError4xx(CreditProxyImpl.java:63)
+		at com.nttdata.microservices.report.proxy.impl.CreditProxyImpl.lambda$getCreditMono$1(CreditProxyImpl.java:55)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec$StatusHandler.apply(DefaultWebClient.java:695)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.applyStatusHandlers(DefaultWebClient.java:654)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.handleBodyMono(DefaultWebClient.java:623)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.lambda$bodyToMono$2(DefaultWebClient.java:541)
+		at reactor.core.publisher.MonoFlatMap$FlatMapMain.onNext(MonoFlatMap.java:125)
+		at reactor.core.publisher.FluxSwitchIfEmpty$SwitchIfEmptySubscriber.onNext(FluxSwitchIfEmpty.java:74)
+		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:122)
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onNext(FluxOnErrorResume.java:79)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82)
+		at reactor.core.publisher.Operators$ScalarSubscription.request(Operators.java:2398)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onSubscribeInner(MonoFlatMapMany.java:150)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onNext(MonoFlatMapMany.java:189)
+		at reactor.core.publisher.SerializedSubscriber.onNext(SerializedSubscriber.java:99)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenMainSubscriber.onNext(FluxRetryWhen.java:174)
+		at reactor.core.publisher.MonoCreate$DefaultMonoSink.success(MonoCreate.java:172)
+		at reactor.netty.http.client.HttpClientConnect$HttpIOHandlerObserver.onStateChange(HttpClientConnect.java:431)
+		at reactor.netty.ReactorNetty$CompositeConnectionObserver.onStateChange(ReactorNetty.java:677)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$DisposableAcquire.onStateChange(DefaultPooledConnectionProvider.java:187)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$PooledConnection.onStateChange(DefaultPooledConnectionProvider.java:444)
+		at reactor.netty.http.client.HttpClientOperations.onInboundNext(HttpClientOperations.java:638)
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:93)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:327)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:314)
+		at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:435)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:279)
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:722)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:995)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Thread.java:829)
+2022-06-17 13:07:51 [reactor-http-nio-3] INFO  c.n.m.r.e.GlobalErrorHandler - Status value is : 404
+2022-06-17 13:10:01 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 4412 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 13:10:01 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 13:10:01 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-06-17 13:10:01 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-06-17 13:10:03 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 13:10:03 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 13:10:03 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 2.323 seconds (JVM running for 3.53)
+2022-06-17 13:10:13 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Credit by accountNumber: 12208640102837
+2022-06-17 13:10:55 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Account by accountNumber: 19135813408153
+2022-06-17 13:10:55 [reactor-http-nio-3] INFO  c.n.m.r.proxy.impl.AccountProxyImpl - Status code : 404
+2022-06-17 13:10:55 [reactor-http-nio-3] ERROR c.n.m.r.e.GlobalErrorHandler - Exception caught in handleAccountException :  There is Account not available with accountNumber: 19135813408153  
+com.nttdata.microservices.report.exception.AccountException: There is Account not available with accountNumber: 19135813408153
+	at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ 404 from GET http://localhost:8082/api/v1/account/number/19135813408153 [DefaultWebClient]
+	*__checkpoint ⇢ Handler com.nttdata.microservices.report.controller.ReportController#getBalanceAccount(String) [DispatcherHandler]
+Original Stack Trace:
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.lambda$findByAccountNumber$1(AccountProxyImpl.java:54)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec$StatusHandler.apply(DefaultWebClient.java:695)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.applyStatusHandlers(DefaultWebClient.java:654)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.handleBodyMono(DefaultWebClient.java:623)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.lambda$bodyToMono$2(DefaultWebClient.java:541)
+		at reactor.core.publisher.MonoFlatMap$FlatMapMain.onNext(MonoFlatMap.java:125)
+		at reactor.core.publisher.FluxSwitchIfEmpty$SwitchIfEmptySubscriber.onNext(FluxSwitchIfEmpty.java:74)
+		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:122)
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onNext(FluxOnErrorResume.java:79)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82)
+		at reactor.core.publisher.Operators$ScalarSubscription.request(Operators.java:2398)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onSubscribeInner(MonoFlatMapMany.java:150)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onNext(MonoFlatMapMany.java:189)
+		at reactor.core.publisher.SerializedSubscriber.onNext(SerializedSubscriber.java:99)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenMainSubscriber.onNext(FluxRetryWhen.java:174)
+		at reactor.core.publisher.MonoCreate$DefaultMonoSink.success(MonoCreate.java:172)
+		at reactor.netty.http.client.HttpClientConnect$HttpIOHandlerObserver.onStateChange(HttpClientConnect.java:431)
+		at reactor.netty.ReactorNetty$CompositeConnectionObserver.onStateChange(ReactorNetty.java:677)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$DisposableAcquire.onStateChange(DefaultPooledConnectionProvider.java:187)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$PooledConnection.onStateChange(DefaultPooledConnectionProvider.java:444)
+		at reactor.netty.http.client.HttpClientOperations.onInboundNext(HttpClientOperations.java:638)
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:93)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:327)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:314)
+		at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:435)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:279)
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:722)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:995)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Thread.java:829)
+2022-06-17 13:10:55 [reactor-http-nio-3] INFO  c.n.m.r.e.GlobalErrorHandler - Status value is : 404
+2022-06-17 13:11:10 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Account by accountNumber: 19135813408153
+2022-06-17 13:11:10 [reactor-http-nio-3] INFO  c.n.m.r.proxy.impl.AccountProxyImpl - Status code : 404
+2022-06-17 13:11:10 [reactor-http-nio-3] ERROR c.n.m.r.e.GlobalErrorHandler - Exception caught in handleAccountException :  There is Account not available with accountNumber: 19135813408153  
+com.nttdata.microservices.report.exception.AccountException: There is Account not available with accountNumber: 19135813408153
+	at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ 404 from GET http://localhost:8082/api/v1/account/number/19135813408153 [DefaultWebClient]
+	*__checkpoint ⇢ Handler com.nttdata.microservices.report.controller.ReportController#getBalanceAccount(String) [DispatcherHandler]
+Original Stack Trace:
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.lambda$findByAccountNumber$1(AccountProxyImpl.java:54)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec$StatusHandler.apply(DefaultWebClient.java:695)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.applyStatusHandlers(DefaultWebClient.java:654)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.handleBodyMono(DefaultWebClient.java:623)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.lambda$bodyToMono$2(DefaultWebClient.java:541)
+		at reactor.core.publisher.MonoFlatMap$FlatMapMain.onNext(MonoFlatMap.java:125)
+		at reactor.core.publisher.FluxSwitchIfEmpty$SwitchIfEmptySubscriber.onNext(FluxSwitchIfEmpty.java:74)
+		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:122)
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onNext(FluxOnErrorResume.java:79)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82)
+		at reactor.core.publisher.Operators$ScalarSubscription.request(Operators.java:2398)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onSubscribeInner(MonoFlatMapMany.java:150)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onNext(MonoFlatMapMany.java:189)
+		at reactor.core.publisher.SerializedSubscriber.onNext(SerializedSubscriber.java:99)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenMainSubscriber.onNext(FluxRetryWhen.java:174)
+		at reactor.core.publisher.MonoCreate$DefaultMonoSink.success(MonoCreate.java:172)
+		at reactor.netty.http.client.HttpClientConnect$HttpIOHandlerObserver.onStateChange(HttpClientConnect.java:431)
+		at reactor.netty.ReactorNetty$CompositeConnectionObserver.onStateChange(ReactorNetty.java:677)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$DisposableAcquire.onStateChange(DefaultPooledConnectionProvider.java:187)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$PooledConnection.onStateChange(DefaultPooledConnectionProvider.java:444)
+		at reactor.netty.http.client.HttpClientOperations.onInboundNext(HttpClientOperations.java:638)
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:93)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:327)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:314)
+		at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:435)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:279)
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:722)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:995)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Thread.java:829)
+2022-06-17 13:11:10 [reactor-http-nio-3] INFO  c.n.m.r.e.GlobalErrorHandler - Status value is : 404
+2022-06-17 13:14:22 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 11928 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 13:14:22 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 13:14:22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-06-17 13:14:22 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-06-17 13:14:24 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 13:14:24 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 13:14:24 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 2.325 seconds (JVM running for 3.737)
+2022-06-17 13:15:19 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Account by accountNumber: 19135813408153
+2022-06-17 13:15:28 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Credit by accountNumber: 12208640102837
+2022-06-17 13:15:44 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Credit by accountNumber: 12208640102837
+2022-06-17 13:15:45 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Credit by accountNumber: 12208640102837
+2022-06-17 13:15:46 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Credit by accountNumber: 12208640102837
+2022-06-17 13:15:47 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Credit by accountNumber: 12208640102837
+2022-06-17 13:17:16 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640102837
+2022-06-17 13:17:16 [reactor-http-nio-3] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [a925a1ea-7]  500 Server Error for HTTP GET "/api/v1/report/movement/credit/12208640102837"
+org.springframework.web.reactive.function.client.WebClientRequestException: Connection refused: no further information: localhost/0:0:0:0:0:0:0:1:8084; nested exception is io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: no further information: localhost/0:0:0:0:0:0:0:1:8084
+	at org.springframework.web.reactive.function.client.ExchangeFunctions$DefaultExchangeFunction.lambda$wrapException$9(ExchangeFunctions.java:141)
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ Request to GET http://localhost:8084/api/v1/transaction/payment/credit/62ab3db48d2ede0da07cf0e6 [DefaultWebClient]
+	*__checkpoint ⇢ Handler com.nttdata.microservices.report.controller.ReportController#findAllCreditMovements(String) [DispatcherHandler]
+	*__checkpoint ⇢ HTTP GET "/api/v1/report/movement/credit/12208640102837" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+		at org.springframework.web.reactive.function.client.ExchangeFunctions$DefaultExchangeFunction.lambda$wrapException$9(ExchangeFunctions.java:141)
+		at reactor.core.publisher.MonoErrorSupplied.subscribe(MonoErrorSupplied.java:55)
+		at reactor.core.publisher.Mono.subscribe(Mono.java:4400)
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onError(FluxOnErrorResume.java:103)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onError(FluxPeek.java:222)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onError(FluxPeek.java:222)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onError(FluxPeek.java:222)
+		at reactor.core.publisher.MonoNext$NextSubscriber.onError(MonoNext.java:93)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onError(MonoFlatMapMany.java:204)
+		at reactor.core.publisher.SerializedSubscriber.onError(SerializedSubscriber.java:124)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenMainSubscriber.whenError(FluxRetryWhen.java:225)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenOtherSubscriber.onError(FluxRetryWhen.java:274)
+		at reactor.core.publisher.FluxConcatMap$ConcatMapImmediate.drain(FluxConcatMap.java:415)
+		at reactor.core.publisher.FluxConcatMap$ConcatMapImmediate.onNext(FluxConcatMap.java:251)
+		at reactor.core.publisher.EmitterProcessor.drain(EmitterProcessor.java:491)
+		at reactor.core.publisher.EmitterProcessor.tryEmitNext(EmitterProcessor.java:299)
+		at reactor.core.publisher.SinkManySerialized.tryEmitNext(SinkManySerialized.java:100)
+		at reactor.core.publisher.InternalManySink.emitNext(InternalManySink.java:27)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenMainSubscriber.onError(FluxRetryWhen.java:190)
+		at reactor.core.publisher.MonoCreate$DefaultMonoSink.error(MonoCreate.java:201)
+		at reactor.netty.http.client.HttpClientConnect$MonoHttpConnect$ClientTransportSubscriber.onError(HttpClientConnect.java:307)
+		at reactor.core.publisher.MonoCreate$DefaultMonoSink.error(MonoCreate.java:201)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$DisposableAcquire.onError(DefaultPooledConnectionProvider.java:158)
+		at reactor.core.publisher.FluxContextWrite$ContextWriteSubscriber.onError(FluxContextWrite.java:121)
+		at reactor.netty.internal.shaded.reactor.pool.AbstractPool$Borrower.fail(AbstractPool.java:477)
+		at reactor.netty.internal.shaded.reactor.pool.SimpleDequePool.lambda$drainLoop$9(SimpleDequePool.java:431)
+		at reactor.core.publisher.FluxDoOnEach$DoOnEachSubscriber.onError(FluxDoOnEach.java:186)
+		at reactor.core.publisher.MonoCreate$DefaultMonoSink.error(MonoCreate.java:201)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$PooledConnectionAllocator$PooledConnectionInitializer.onError(DefaultPooledConnectionProvider.java:548)
+		at reactor.core.publisher.MonoFlatMap$FlatMapMain.secondError(MonoFlatMap.java:192)
+		at reactor.core.publisher.MonoFlatMap$FlatMapInner.onError(MonoFlatMap.java:259)
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onError(FluxOnErrorResume.java:106)
+		at reactor.core.publisher.SerializedSubscriber.onError(SerializedSubscriber.java:124)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenMainSubscriber.whenError(FluxRetryWhen.java:225)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenOtherSubscriber.onError(FluxRetryWhen.java:274)
+		at reactor.core.publisher.FluxConcatMap$ConcatMapImmediate.drain(FluxConcatMap.java:415)
+		at reactor.core.publisher.FluxConcatMap$ConcatMapImmediate.onNext(FluxConcatMap.java:251)
+		at reactor.core.publisher.EmitterProcessor.drain(EmitterProcessor.java:491)
+		at reactor.core.publisher.EmitterProcessor.tryEmitNext(EmitterProcessor.java:299)
+		at reactor.core.publisher.SinkManySerialized.tryEmitNext(SinkManySerialized.java:100)
+		at reactor.core.publisher.InternalManySink.emitNext(InternalManySink.java:27)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenMainSubscriber.onError(FluxRetryWhen.java:190)
+		at reactor.core.publisher.MonoFlatMap$FlatMapMain.secondError(MonoFlatMap.java:192)
+		at reactor.core.publisher.MonoFlatMap$FlatMapInner.onError(MonoFlatMap.java:259)
+		at reactor.netty.transport.TransportConnector$MonoChannelPromise.tryFailure(TransportConnector.java:534)
+		at reactor.netty.transport.TransportConnector$MonoChannelPromise.setFailure(TransportConnector.java:488)
+		at reactor.netty.transport.TransportConnector.lambda$doConnect$7(TransportConnector.java:223)
+		at io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:578)
+		at io.netty.util.concurrent.DefaultPromise.notifyListeners0(DefaultPromise.java:571)
+		at io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:550)
+		at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:491)
+		at io.netty.util.concurrent.DefaultPromise.setValue0(DefaultPromise.java:616)
+		at io.netty.util.concurrent.DefaultPromise.setFailure0(DefaultPromise.java:609)
+		at io.netty.util.concurrent.DefaultPromise.tryFailure(DefaultPromise.java:117)
+		at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.fulfillConnectPromise(AbstractNioChannel.java:321)
+		at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:337)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:710)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:995)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Thread.java:829)
+Caused by: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: no further information: localhost/0:0:0:0:0:0:0:1:8084
+Caused by: java.net.ConnectException: Connection refused: no further information
+	at java.base/sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:777)
+	at io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:337)
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:334)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:710)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:995)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+2022-06-17 13:18:37 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640102837
+2022-06-17 13:19:12 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640105555
+2022-06-17 13:19:57 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640105555
+2022-06-17 13:21:55 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 4364 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 13:21:55 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 13:21:55 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-06-17 13:21:55 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-06-17 13:21:57 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 13:21:57 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 13:21:57 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 2.356 seconds (JVM running for 3.606)
+2022-06-17 13:22:08 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640105555
+2022-06-17 13:22:46 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640105555
+2022-06-17 14:22:39 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 16832 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 14:22:39 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 14:22:39 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-06-17 14:22:39 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-06-17 14:22:41 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 14:22:41 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 14:22:41 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 2.576 seconds (JVM running for 4.326)
+2022-06-17 14:46:41 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 13280 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 14:46:42 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 14:46:42 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-06-17 14:46:42 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-06-17 14:46:43 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 14:46:43 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 14:46:43 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 2.324 seconds (JVM running for 3.593)
+2022-06-17 14:48:28 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640105555
+2022-06-17 15:15:57 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 9160 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 15:15:57 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 15:15:57 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-06-17 15:15:57 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-06-17 15:15:59 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 15:15:59 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 15:15:59 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 2.521 seconds (JVM running for 4.074)
+2022-06-17 15:16:51 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640105555
+2022-06-17 15:16:56 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640105556
+2022-06-17 15:16:56 [reactor-http-nio-4] INFO  c.n.m.r.proxy.impl.CreditProxyImpl - Status code : 404
+2022-06-17 15:16:56 [reactor-http-nio-4] ERROR c.n.m.r.e.GlobalErrorHandler - Exception caught in handleCreditException :  There is Credit not available: 12208640105556  
+com.nttdata.microservices.report.exception.CreditNotFoundException: There is Credit not available: 12208640105556 
+	at com.nttdata.microservices.report.proxy.impl.CreditProxyImpl.applyError4xx(CreditProxyImpl.java:63)
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ 404 from GET http://localhost:8083/api/v1/credit/account-number/12208640105556 [DefaultWebClient]
+	*__checkpoint ⇢ Handler com.nttdata.microservices.report.controller.ReportController#findAllCreditMovements(String) [DispatcherHandler]
+Original Stack Trace:
+		at com.nttdata.microservices.report.proxy.impl.CreditProxyImpl.applyError4xx(CreditProxyImpl.java:63)
+		at com.nttdata.microservices.report.proxy.impl.CreditProxyImpl.lambda$getCreditMono$1(CreditProxyImpl.java:55)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec$StatusHandler.apply(DefaultWebClient.java:695)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.applyStatusHandlers(DefaultWebClient.java:654)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.handleBodyMono(DefaultWebClient.java:623)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.lambda$bodyToMono$2(DefaultWebClient.java:541)
+		at reactor.core.publisher.MonoFlatMap$FlatMapMain.onNext(MonoFlatMap.java:125)
+		at reactor.core.publisher.FluxSwitchIfEmpty$SwitchIfEmptySubscriber.onNext(FluxSwitchIfEmpty.java:74)
+		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:122)
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onNext(FluxOnErrorResume.java:79)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82)
+		at reactor.core.publisher.Operators$ScalarSubscription.request(Operators.java:2398)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onSubscribeInner(MonoFlatMapMany.java:150)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onNext(MonoFlatMapMany.java:189)
+		at reactor.core.publisher.SerializedSubscriber.onNext(SerializedSubscriber.java:99)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenMainSubscriber.onNext(FluxRetryWhen.java:174)
+		at reactor.core.publisher.MonoCreate$DefaultMonoSink.success(MonoCreate.java:172)
+		at reactor.netty.http.client.HttpClientConnect$HttpIOHandlerObserver.onStateChange(HttpClientConnect.java:431)
+		at reactor.netty.ReactorNetty$CompositeConnectionObserver.onStateChange(ReactorNetty.java:677)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$DisposableAcquire.onStateChange(DefaultPooledConnectionProvider.java:187)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$PooledConnection.onStateChange(DefaultPooledConnectionProvider.java:444)
+		at reactor.netty.http.client.HttpClientOperations.onInboundNext(HttpClientOperations.java:638)
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:93)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:327)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:314)
+		at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:435)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:279)
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:722)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:995)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Thread.java:829)
+2022-06-17 15:16:56 [reactor-http-nio-4] INFO  c.n.m.r.e.GlobalErrorHandler - Status value is : 404
+2022-06-17 15:17:51 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640102838
+2022-06-17 15:18:46 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Account by accountNumber: 1220864010555
+2022-06-17 15:18:46 [reactor-http-nio-3] INFO  c.n.m.r.proxy.impl.AccountProxyImpl - Status code : 404
+2022-06-17 15:18:46 [reactor-http-nio-3] ERROR c.n.m.r.e.GlobalErrorHandler - Exception caught in handleAccountException :  There is Account not available with accountNumber: 1220864010555  
+com.nttdata.microservices.report.exception.AccountException: There is Account not available with accountNumber: 1220864010555
+	at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ 404 from GET http://localhost:8082/api/v1/account/account-number/1220864010555 [DefaultWebClient]
+	*__checkpoint ⇢ Handler com.nttdata.microservices.report.controller.ReportController#findAllAccountMovements(String) [DispatcherHandler]
+Original Stack Trace:
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.lambda$findByAccountNumber$1(AccountProxyImpl.java:54)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec$StatusHandler.apply(DefaultWebClient.java:695)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.applyStatusHandlers(DefaultWebClient.java:654)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.handleBodyMono(DefaultWebClient.java:623)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.lambda$bodyToMono$2(DefaultWebClient.java:541)
+		at reactor.core.publisher.MonoFlatMap$FlatMapMain.onNext(MonoFlatMap.java:125)
+		at reactor.core.publisher.FluxSwitchIfEmpty$SwitchIfEmptySubscriber.onNext(FluxSwitchIfEmpty.java:74)
+		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:122)
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onNext(FluxOnErrorResume.java:79)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82)
+		at reactor.core.publisher.Operators$ScalarSubscription.request(Operators.java:2398)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onSubscribeInner(MonoFlatMapMany.java:150)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onNext(MonoFlatMapMany.java:189)
+		at reactor.core.publisher.SerializedSubscriber.onNext(SerializedSubscriber.java:99)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenMainSubscriber.onNext(FluxRetryWhen.java:174)
+		at reactor.core.publisher.MonoCreate$DefaultMonoSink.success(MonoCreate.java:172)
+		at reactor.netty.http.client.HttpClientConnect$HttpIOHandlerObserver.onStateChange(HttpClientConnect.java:431)
+		at reactor.netty.ReactorNetty$CompositeConnectionObserver.onStateChange(ReactorNetty.java:677)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$DisposableAcquire.onStateChange(DefaultPooledConnectionProvider.java:187)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$PooledConnection.onStateChange(DefaultPooledConnectionProvider.java:444)
+		at reactor.netty.http.client.HttpClientOperations.onInboundNext(HttpClientOperations.java:638)
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:93)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:327)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:299)
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:722)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:995)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Thread.java:829)
+2022-06-17 15:18:46 [reactor-http-nio-3] INFO  c.n.m.r.e.GlobalErrorHandler - Status value is : 404
+2022-06-17 15:19:00 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Account by accountNumber: 12208640105555
+2022-06-17 15:19:00 [reactor-http-nio-3] INFO  c.n.m.r.proxy.impl.AccountProxyImpl - Status code : 404
+2022-06-17 15:19:00 [reactor-http-nio-3] ERROR c.n.m.r.e.GlobalErrorHandler - Exception caught in handleAccountException :  There is Account not available with accountNumber: 12208640105555  
+com.nttdata.microservices.report.exception.AccountException: There is Account not available with accountNumber: 12208640105555
+	at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ 404 from GET http://localhost:8082/api/v1/account/account-number/12208640105555 [DefaultWebClient]
+	*__checkpoint ⇢ Handler com.nttdata.microservices.report.controller.ReportController#findAllAccountMovements(String) [DispatcherHandler]
+Original Stack Trace:
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.lambda$findByAccountNumber$1(AccountProxyImpl.java:54)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec$StatusHandler.apply(DefaultWebClient.java:695)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.applyStatusHandlers(DefaultWebClient.java:654)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.handleBodyMono(DefaultWebClient.java:623)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.lambda$bodyToMono$2(DefaultWebClient.java:541)
+		at reactor.core.publisher.MonoFlatMap$FlatMapMain.onNext(MonoFlatMap.java:125)
+		at reactor.core.publisher.FluxSwitchIfEmpty$SwitchIfEmptySubscriber.onNext(FluxSwitchIfEmpty.java:74)
+		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:122)
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onNext(FluxOnErrorResume.java:79)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82)
+		at reactor.core.publisher.Operators$ScalarSubscription.request(Operators.java:2398)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onSubscribeInner(MonoFlatMapMany.java:150)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onNext(MonoFlatMapMany.java:189)
+		at reactor.core.publisher.SerializedSubscriber.onNext(SerializedSubscriber.java:99)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenMainSubscriber.onNext(FluxRetryWhen.java:174)
+		at reactor.core.publisher.MonoCreate$DefaultMonoSink.success(MonoCreate.java:172)
+		at reactor.netty.http.client.HttpClientConnect$HttpIOHandlerObserver.onStateChange(HttpClientConnect.java:431)
+		at reactor.netty.ReactorNetty$CompositeConnectionObserver.onStateChange(ReactorNetty.java:677)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$DisposableAcquire.onStateChange(DefaultPooledConnectionProvider.java:187)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$PooledConnection.onStateChange(DefaultPooledConnectionProvider.java:444)
+		at reactor.netty.http.client.HttpClientOperations.onInboundNext(HttpClientOperations.java:638)
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:93)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:327)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:299)
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:722)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:995)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Thread.java:829)
+2022-06-17 15:19:00 [reactor-http-nio-3] INFO  c.n.m.r.e.GlobalErrorHandler - Status value is : 404
+2022-06-17 15:19:07 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Account by accountNumber: 12208640105555
+2022-06-17 15:19:07 [reactor-http-nio-3] INFO  c.n.m.r.proxy.impl.AccountProxyImpl - Status code : 404
+2022-06-17 15:19:07 [reactor-http-nio-3] ERROR c.n.m.r.e.GlobalErrorHandler - Exception caught in handleAccountException :  There is Account not available with accountNumber: 12208640105555  
+com.nttdata.microservices.report.exception.AccountException: There is Account not available with accountNumber: 12208640105555
+	at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ 404 from GET http://localhost:8082/api/v1/account/account-number/12208640105555 [DefaultWebClient]
+	*__checkpoint ⇢ Handler com.nttdata.microservices.report.controller.ReportController#findAllAccountMovements(String) [DispatcherHandler]
+Original Stack Trace:
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.lambda$findByAccountNumber$1(AccountProxyImpl.java:54)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec$StatusHandler.apply(DefaultWebClient.java:695)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.applyStatusHandlers(DefaultWebClient.java:654)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.handleBodyMono(DefaultWebClient.java:623)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.lambda$bodyToMono$2(DefaultWebClient.java:541)
+		at reactor.core.publisher.MonoFlatMap$FlatMapMain.onNext(MonoFlatMap.java:125)
+		at reactor.core.publisher.FluxSwitchIfEmpty$SwitchIfEmptySubscriber.onNext(FluxSwitchIfEmpty.java:74)
+		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:122)
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onNext(FluxOnErrorResume.java:79)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82)
+		at reactor.core.publisher.Operators$ScalarSubscription.request(Operators.java:2398)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onSubscribeInner(MonoFlatMapMany.java:150)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onNext(MonoFlatMapMany.java:189)
+		at reactor.core.publisher.SerializedSubscriber.onNext(SerializedSubscriber.java:99)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenMainSubscriber.onNext(FluxRetryWhen.java:174)
+		at reactor.core.publisher.MonoCreate$DefaultMonoSink.success(MonoCreate.java:172)
+		at reactor.netty.http.client.HttpClientConnect$HttpIOHandlerObserver.onStateChange(HttpClientConnect.java:431)
+		at reactor.netty.ReactorNetty$CompositeConnectionObserver.onStateChange(ReactorNetty.java:677)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$DisposableAcquire.onStateChange(DefaultPooledConnectionProvider.java:187)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$PooledConnection.onStateChange(DefaultPooledConnectionProvider.java:444)
+		at reactor.netty.http.client.HttpClientOperations.onInboundNext(HttpClientOperations.java:638)
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:93)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:327)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:299)
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:722)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:995)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Thread.java:829)
+2022-06-17 15:19:07 [reactor-http-nio-3] INFO  c.n.m.r.e.GlobalErrorHandler - Status value is : 404
+2022-06-17 15:26:25 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Account by accountNumber: 19135813408153
+2022-06-17 16:36:54 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 9480 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 16:36:54 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 16:36:54 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-06-17 16:36:54 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-06-17 16:36:56 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 16:36:56 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 16:36:56 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 2.459 seconds (JVM running for 3.717)
+2022-06-17 16:38:00 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Credit by accountNumber: 12208640102837
+2022-06-17 16:38:04 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640102838
+2022-06-17 16:38:09 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640102838
+2022-06-17 16:38:17 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Account by accountNumber: 19135813408153
+2022-06-17 16:38:17 [reactor-http-nio-3] INFO  c.n.m.r.proxy.impl.AccountProxyImpl - Status code : 404
+2022-06-17 16:38:17 [reactor-http-nio-3] ERROR c.n.m.r.e.GlobalErrorHandler - Exception caught in handleAccountException :  There is Account not available with accountNumber: 19135813408153  
+com.nttdata.microservices.report.exception.AccountException: There is Account not available with accountNumber: 19135813408153
+	at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ 404 from GET http://localhost:8082/api/v1/account/account-number/19135813408153 [DefaultWebClient]
+	*__checkpoint ⇢ Handler com.nttdata.microservices.report.controller.ReportController#getBalanceAccount(String) [DispatcherHandler]
+Original Stack Trace:
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.lambda$findByAccountNumber$1(AccountProxyImpl.java:54)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec$StatusHandler.apply(DefaultWebClient.java:695)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.applyStatusHandlers(DefaultWebClient.java:654)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.handleBodyMono(DefaultWebClient.java:623)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.lambda$bodyToMono$2(DefaultWebClient.java:541)
+		at reactor.core.publisher.MonoFlatMap$FlatMapMain.onNext(MonoFlatMap.java:125)
+		at reactor.core.publisher.FluxSwitchIfEmpty$SwitchIfEmptySubscriber.onNext(FluxSwitchIfEmpty.java:74)
+		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:122)
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onNext(FluxOnErrorResume.java:79)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82)
+		at reactor.core.publisher.Operators$ScalarSubscription.request(Operators.java:2398)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onSubscribeInner(MonoFlatMapMany.java:150)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onNext(MonoFlatMapMany.java:189)
+		at reactor.core.publisher.SerializedSubscriber.onNext(SerializedSubscriber.java:99)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenMainSubscriber.onNext(FluxRetryWhen.java:174)
+		at reactor.core.publisher.MonoCreate$DefaultMonoSink.success(MonoCreate.java:172)
+		at reactor.netty.http.client.HttpClientConnect$HttpIOHandlerObserver.onStateChange(HttpClientConnect.java:431)
+		at reactor.netty.ReactorNetty$CompositeConnectionObserver.onStateChange(ReactorNetty.java:677)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$DisposableAcquire.onStateChange(DefaultPooledConnectionProvider.java:187)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$PooledConnection.onStateChange(DefaultPooledConnectionProvider.java:444)
+		at reactor.netty.http.client.HttpClientOperations.onInboundNext(HttpClientOperations.java:638)
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:93)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:327)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:299)
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:722)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:995)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Thread.java:829)
+2022-06-17 16:38:17 [reactor-http-nio-3] INFO  c.n.m.r.e.GlobalErrorHandler - Status value is : 404
+2022-06-17 16:38:24 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Credit by accountNumber: 12208640102837
+2022-06-17 16:39:00 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640102837
+2022-06-17 16:39:24 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Credit by accountNumber: 12208640105555
+2022-06-17 16:39:33 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Account by accountNumber: 19135813408153
+2022-06-17 16:39:33 [reactor-http-nio-3] INFO  c.n.m.r.proxy.impl.AccountProxyImpl - Status code : 404
+2022-06-17 16:39:33 [reactor-http-nio-3] ERROR c.n.m.r.e.GlobalErrorHandler - Exception caught in handleAccountException :  There is Account not available with accountNumber: 19135813408153  
+com.nttdata.microservices.report.exception.AccountException: There is Account not available with accountNumber: 19135813408153
+	at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ 404 from GET http://localhost:8082/api/v1/account/account-number/19135813408153 [DefaultWebClient]
+	*__checkpoint ⇢ Handler com.nttdata.microservices.report.controller.ReportController#getBalanceAccount(String) [DispatcherHandler]
+Original Stack Trace:
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.applyError4xx(AccountProxyImpl.java:62)
+		at com.nttdata.microservices.report.proxy.impl.AccountProxyImpl.lambda$findByAccountNumber$1(AccountProxyImpl.java:54)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec$StatusHandler.apply(DefaultWebClient.java:695)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.applyStatusHandlers(DefaultWebClient.java:654)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.handleBodyMono(DefaultWebClient.java:623)
+		at org.springframework.web.reactive.function.client.DefaultWebClient$DefaultResponseSpec.lambda$bodyToMono$2(DefaultWebClient.java:541)
+		at reactor.core.publisher.MonoFlatMap$FlatMapMain.onNext(MonoFlatMap.java:125)
+		at reactor.core.publisher.FluxSwitchIfEmpty$SwitchIfEmptySubscriber.onNext(FluxSwitchIfEmpty.java:74)
+		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:122)
+		at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onNext(FluxOnErrorResume.java:79)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:200)
+		at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82)
+		at reactor.core.publisher.Operators$ScalarSubscription.request(Operators.java:2398)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onSubscribeInner(MonoFlatMapMany.java:150)
+		at reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain.onNext(MonoFlatMapMany.java:189)
+		at reactor.core.publisher.SerializedSubscriber.onNext(SerializedSubscriber.java:99)
+		at reactor.core.publisher.FluxRetryWhen$RetryWhenMainSubscriber.onNext(FluxRetryWhen.java:174)
+		at reactor.core.publisher.MonoCreate$DefaultMonoSink.success(MonoCreate.java:172)
+		at reactor.netty.http.client.HttpClientConnect$HttpIOHandlerObserver.onStateChange(HttpClientConnect.java:431)
+		at reactor.netty.ReactorNetty$CompositeConnectionObserver.onStateChange(ReactorNetty.java:677)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$DisposableAcquire.onStateChange(DefaultPooledConnectionProvider.java:187)
+		at reactor.netty.resources.DefaultPooledConnectionProvider$PooledConnection.onStateChange(DefaultPooledConnectionProvider.java:444)
+		at reactor.netty.http.client.HttpClientOperations.onInboundNext(HttpClientOperations.java:638)
+		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:93)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:327)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:299)
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:722)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:995)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Thread.java:829)
+2022-06-17 16:39:33 [reactor-http-nio-3] INFO  c.n.m.r.e.GlobalErrorHandler - Status value is : 404
+2022-06-17 16:39:43 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - get Balance Account by accountNumber: 19135813408156
+2022-06-17 16:41:04 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Account by accountNumber: 19135813408156
+2022-06-17 16:42:31 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 5044 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 16:42:31 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 16:42:31 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-06-17 16:42:31 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-06-17 16:42:32 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 16:42:32 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 16:42:32 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 2.468 seconds (JVM running for 3.962)
+2022-06-17 16:42:46 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Account by accountNumber: 19135813408156
+2022-06-17 16:43:08 [reactor-http-nio-3] INFO  c.n.m.r.controller.ReportController - find Movements Account by accountNumber: 19135813408156
+2022-06-17 16:47:06 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 5044 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 16:47:06 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 16:47:07 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 16:47:07 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 16:47:07 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 0.408 seconds (JVM running for 278.334)
+2022-06-17 16:47:07 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2022-06-17 16:47:10 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 5044 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 16:47:10 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 16:47:11 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 16:47:11 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 16:47:11 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 0.333 seconds (JVM running for 282.241)
+2022-06-17 16:47:11 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2022-06-17 16:47:57 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 5044 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 16:47:57 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 16:47:57 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 16:47:57 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 16:47:57 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 0.314 seconds (JVM running for 328.518)
+2022-06-17 16:47:57 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2022-06-17 16:48:11 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 5044 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 16:48:11 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 16:48:11 [restartedMain] WARN  o.s.b.w.r.c.AnnotationConfigReactiveWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'messageUtils' defined in file [D:\Development\BootCamp\Proyecto\report-service\target\classes\com\nttdata\microservices\report\util\MessageUtils.class]: Bean instantiation via constructor failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.nttdata.microservices.report.util.MessageUtils]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	The declared package "com.nttdata.microservices.transaction.util" does not match the expected package "com.nttdata.microservices.report.util"
+
+2022-06-17 16:48:11 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-06-17 16:48:11 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'messageUtils' defined in file [D:\Development\BootCamp\Proyecto\report-service\target\classes\com\nttdata\microservices\report\util\MessageUtils.class]: Bean instantiation via constructor failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.nttdata.microservices.report.util.MessageUtils]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	The declared package "com.nttdata.microservices.transaction.util" does not match the expected package "com.nttdata.microservices.report.util"
+
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:315)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:296)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1372)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1222)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:953)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.refresh(ReactiveWebServerApplicationContext.java:66)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.nttdata.microservices.report.ReportServiceApplication.main(ReportServiceApplication.java:10)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.nttdata.microservices.report.util.MessageUtils]: Constructor threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	The declared package "com.nttdata.microservices.transaction.util" does not match the expected package "com.nttdata.microservices.report.util"
+
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:224)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:117)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:311)
+	... 24 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	The declared package "com.nttdata.microservices.transaction.util" does not match the expected package "com.nttdata.microservices.report.util"
+
+	at com.nttdata.microservices.report.util.MessageUtils.<init>(MessageUtils.java:1)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:211)
+	... 26 common frames omitted
+2022-06-17 16:48:14 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 5044 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 16:48:14 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 16:48:14 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 16:48:14 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 16:48:14 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 0.336 seconds (JVM running for 345.489)
+2022-06-17 16:48:14 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2022-06-17 16:48:31 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 5044 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 16:48:31 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 16:48:31 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 16:48:31 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 16:48:31 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 0.301 seconds (JVM running for 362.734)
+2022-06-17 16:48:31 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   MessageSourceAutoConfiguration matched:
+      - ResourceBundle found bundle URL [file:/D:/Development/BootCamp/Proyecto/report-service/target/classes/i18n/messages.properties] (MessageSourceAutoConfiguration.ResourceBundleCondition)
+      - @ConditionalOnMissingBean (names: messageSource; SearchStrategy: current) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2022-06-17 16:50:21 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Starting ReportServiceApplication using Java 11.0.15 on DESKTOP-177UEKP with PID 5044 (D:\Development\BootCamp\Proyecto\report-service\target\classes started by Fredy in D:\Development\BootCamp\Proyecto\report-service)
+2022-06-17 16:50:21 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2022-06-17 16:50:21 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-06-17 16:50:21 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8085
+2022-06-17 16:50:21 [restartedMain] INFO  c.n.m.r.ReportServiceApplication - Started ReportServiceApplication in 0.31 seconds (JVM running for 472.458)
+2022-06-17 16:50:21 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged

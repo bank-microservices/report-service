@@ -1,0 +1,20 @@
+server:
+  port: 8085
+
+spring:
+  messages:
+    basename: i18n/messages
+    fallback-to-system-locale: true
+    use-code-as-default-message: true
+  jackson:
+    default-property-inclusion: non_null
+
+service:
+  client:
+    uri: http://localhost:8081/api/v1/client
+  account:
+    uri: http://localhost:8082/api/v1/account
+  credit:
+    uri: http://localhost:8083/api/v1/credit
+  transaction:
+    uri: http://localhost:8084/api/v1/transaction
