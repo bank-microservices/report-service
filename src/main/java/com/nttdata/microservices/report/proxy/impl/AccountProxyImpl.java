@@ -6,6 +6,7 @@ import com.nttdata.microservices.report.entity.account.Account;
 import com.nttdata.microservices.report.exception.AccountException;
 import com.nttdata.microservices.report.proxy.AccountProxy;
 import com.nttdata.microservices.report.util.RestUtils;
+import java.time.Duration;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +16,7 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
 
 @Slf4j
 @Service
@@ -44,7 +46,8 @@ public class AccountProxyImpl implements AccountProxy {
         .onStatus(HttpStatus::is4xxClientError,
             clientResponse -> this.applyError4xx(clientResponse, errorMessage))
         .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
-        .bodyToFlux(Account.class);
+        .bodyToFlux(Account.class)
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
   }
 
   @Override
@@ -58,7 +61,8 @@ public class AccountProxyImpl implements AccountProxy {
         .onStatus(HttpStatus::is4xxClientError,
             clientResponse -> this.applyError4xx(clientResponse, errorMessage))
         .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
-        .bodyToMono(Account.class);
+        .bodyToMono(Account.class)
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
   }
 
   private Mono<? extends Throwable> applyError4xx(final ClientResponse creditResponse,

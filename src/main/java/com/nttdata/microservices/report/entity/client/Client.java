@@ -1,9 +1,13 @@
 package com.nttdata.microservices.report.entity.client;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 public class Client {
   private String id;

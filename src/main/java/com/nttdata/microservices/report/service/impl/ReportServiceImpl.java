@@ -3,14 +3,14 @@ package com.nttdata.microservices.report.service.impl;
 import static com.nttdata.microservices.report.util.MessageUtils.getMsg;
 
 import com.nttdata.microservices.report.entity.account.Account;
-import com.nttdata.microservices.report.entity.credit.Credit;
+import com.nttdata.microservices.report.entity.credit.CreditProduct;
 import com.nttdata.microservices.report.entity.transaction.Consumption;
 import com.nttdata.microservices.report.entity.transaction.Payment;
 import com.nttdata.microservices.report.entity.transaction.Transaction;
 import com.nttdata.microservices.report.exception.AccountException;
 import com.nttdata.microservices.report.exception.CreditNotFoundException;
 import com.nttdata.microservices.report.proxy.AccountProxy;
-import com.nttdata.microservices.report.proxy.CreditProxy;
+import com.nttdata.microservices.report.proxy.CreditProductProxy;
 import com.nttdata.microservices.report.proxy.TransactionProxy;
 import com.nttdata.microservices.report.service.ReportService;
 import com.nttdata.microservices.report.service.dto.BalanceDto;
@@ -30,7 +30,7 @@ import reactor.core.scheduler.Schedulers;
 @RequiredArgsConstructor
 public class ReportServiceImpl implements ReportService {
 
-  private final CreditProxy creditProxy;
+  private final CreditProductProxy creditProductProxy;
   private final AccountProxy accountProxy;
   private final TransactionProxy transactionProxy;
 
@@ -41,9 +41,14 @@ public class ReportServiceImpl implements ReportService {
    * @param accountNumber String
    * @return Mono of Credit
    */
-  private Mono<Credit> existCredit(String accountNumber) {
-    return creditProxy.findByAccountNumber(accountNumber)
+  private Mono<CreditProduct> existCredit(String accountNumber) {
+    return creditProductProxy.findCreditByAccountNumber(accountNumber)
         .switchIfEmpty(Mono.error(new CreditNotFoundException(getMsg("credit.not.found"))));
+  }
+
+  private Mono<CreditProduct> existCreditCard(String accountNumber) {
+    return creditProductProxy.findCreditCardByAccountNumber(accountNumber)
+        .switchIfEmpty(Mono.error(new CreditNotFoundException(getMsg("credit.card.not.found"))));
   }
 
   /**
@@ -77,6 +82,18 @@ public class ReportServiceImpl implements ReportService {
             .build());
   }
 
+  @Override
+  public Mono<BalanceDto> getBalanceCreditCard(String accountNumber) {
+    return Mono.just(accountNumber)
+        .flatMap(this::existCreditCard)
+        .map(dto -> BalanceDto.builder()
+            .consumed(dto.getAmount())
+            .limit(dto.getCreditLimit())
+            .available(dto.getCreditLimit() - dto.getAmount())
+            .accountNumber(dto.getAccountNumber())
+            .build());
+  }
+
   /**
    * It takes a credit account number, checks if it exists,
    * then returns a Flux of MovementDto objects, which are either payments or consumptions,
@@ -86,7 +103,7 @@ public class ReportServiceImpl implements ReportService {
    * @return A Flux of MovementDto
    */
   @Override
-  public Flux<MovementDto> findAllCreditMovementsByAccountNumber(String accountNumber) {
+  public Flux<MovementDto> findAllTransactionsCreditByAccountNumber(String accountNumber) {
 
     return Flux.just(accountNumber)
         .flatMap(this::existCredit)
@@ -118,7 +135,7 @@ public class ReportServiceImpl implements ReportService {
    * @param credit Credit
    * @return A Flux of Payment objects.
    */
-  private Flux<Payment> findPaymentsByCreditId(Credit credit) {
+  private Flux<Payment> findPaymentsByCreditId(CreditProduct credit) {
     return transactionProxy.findPaymentByCreditId(credit.getId())
         .switchIfEmpty(Flux.empty());
   }
@@ -130,7 +147,7 @@ public class ReportServiceImpl implements ReportService {
    * @param credit Credit
    * @return A Flux of Consumption objects.
    */
-  private Flux<Consumption> findConsumptionsByCreditId(Credit credit) {
+  private Flux<Consumption> findConsumptionsByCreditId(CreditProduct credit) {
     return transactionProxy.findConsumptionByCreditId(credit.getId())
         .switchIfEmpty(Flux.empty());
   }
@@ -161,7 +178,7 @@ public class ReportServiceImpl implements ReportService {
    * @return A Flux of MovementDto
    */
   @Override
-  public Flux<MovementDto> findAllAccountMovementsByAccountNumber(String accountNumber) {
+  public Flux<MovementDto> findAllTransactionsAccountByAccountNumber(String accountNumber) {
     return Flux.just(accountNumber)
         .flatMap(this::existAccount)
         .flatMap(this::findTransactionByAccountId)

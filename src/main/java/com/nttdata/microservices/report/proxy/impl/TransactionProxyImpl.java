@@ -8,6 +8,7 @@ import com.nttdata.microservices.report.entity.transaction.Transaction;
 import com.nttdata.microservices.report.exception.TransactionException;
 import com.nttdata.microservices.report.proxy.TransactionProxy;
 import com.nttdata.microservices.report.util.RestUtils;
+import java.time.Duration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
 
 @Slf4j
 @Service
@@ -39,7 +41,8 @@ public class TransactionProxyImpl implements TransactionProxy {
         .onStatus(HttpStatus::is4xxClientError,
             clientResponse -> this.applyError4xx(clientResponse, errorMessage))
         .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
-        .bodyToFlux(Consumption.class);
+        .bodyToFlux(Consumption.class)
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
   }
 
   @Override
@@ -51,7 +54,8 @@ public class TransactionProxyImpl implements TransactionProxy {
         .onStatus(HttpStatus::is4xxClientError,
             clientResponse -> this.applyError4xx(clientResponse, errorMessage))
         .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
-        .bodyToFlux(Payment.class);
+        .bodyToFlux(Payment.class)
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
   }
 
   @Override
@@ -63,7 +67,8 @@ public class TransactionProxyImpl implements TransactionProxy {
         .onStatus(HttpStatus::is4xxClientError,
             clientResponse -> this.applyError4xx(clientResponse, errorMessage))
         .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
-        .bodyToFlux(Transaction.class);
+        .bodyToFlux(Transaction.class)
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
   }
 
   private Mono<? extends Throwable> applyError4xx(final ClientResponse clientResponse,

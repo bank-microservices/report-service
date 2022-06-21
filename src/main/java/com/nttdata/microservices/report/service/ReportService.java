@@ -9,10 +9,12 @@ public interface ReportService {
 
   Mono<BalanceDto> getBalanceCredit(String accountNumber);
 
-  Flux<MovementDto> findAllCreditMovementsByAccountNumber(String accountNumber);
+  Mono<BalanceDto> getBalanceCreditCard(String accountNumber);
+
+  Flux<MovementDto> findAllTransactionsCreditByAccountNumber(String accountNumber);
 
   Mono<BalanceDto> getBalanceAccount(String accountNumber);
 
-  Flux<MovementDto> findAllAccountMovementsByAccountNumber(String accountNumber);
+  Flux<MovementDto> findAllTransactionsAccountByAccountNumber(String accountNumber);
 
 }

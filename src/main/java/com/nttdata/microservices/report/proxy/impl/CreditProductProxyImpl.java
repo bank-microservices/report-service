@@ -2,10 +2,13 @@ package com.nttdata.microservices.report.proxy.impl;
 
 import static com.nttdata.microservices.report.util.MessageUtils.getMsg;
 
-import com.nttdata.microservices.report.entity.credit.Credit;
+import com.nttdata.microservices.report.entity.credit.CreditProduct;
+import com.nttdata.microservices.report.entity.credit.CreditProductType;
 import com.nttdata.microservices.report.exception.CreditNotFoundException;
-import com.nttdata.microservices.report.proxy.CreditProxy;
+import com.nttdata.microservices.report.proxy.CreditProductProxy;
 import com.nttdata.microservices.report.util.RestUtils;
+import java.time.Duration;
+import java.util.function.Function;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -13,31 +16,27 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
 
 @Slf4j
 @Service
-public class CreditProxyImpl implements CreditProxy {
+public class CreditProductProxyImpl implements CreditProductProxy {
 
   private static final String STATUS_CODE = "Status code : {}";
   private final WebClient webClient;
 
-  public CreditProxyImpl(@Value("${service.credit.uri}") final String url) {
+  public CreditProductProxyImpl(@Value("${service.credit.uri}") final String url) {
     this.webClient = WebClient.builder()
         .clientConnector(RestUtils.getDefaultClientConnector())
         .baseUrl(url).build();
   }
 
   @Override
-  public final Mono<Credit> findById(final String id) {
-    return getCreditMono("/{id}", id);
-  }
-
-  @Override
-  public final Mono<Credit> findByAccountNumber(final String accountNumber) {
+  public final Mono<CreditProduct> findCreditByAccountNumber(final String accountNumber) {
     return getCreditMono("/account-number/{number}", accountNumber);
   }
 
-  private Mono<Credit> getCreditMono(final String uri, final String findValue) {
+  private Mono<CreditProduct> getCreditMono(final String uri, final String findValue) {
     String errorMessage = getMsg("credit.not.available", findValue);
     return this.webClient.get()
         .uri(uri, findValue)
@@ -45,8 +44,32 @@ public class CreditProxyImpl implements CreditProxy {
         .onStatus(HttpStatus::is4xxClientError,
             clientResponse -> this.applyError4xx(clientResponse, errorMessage))
         .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
-        .bodyToMono(Credit.class);
+        .bodyToMono(CreditProduct.class)
+        .map(setCreditProductType(CreditProductType.CREDIT))
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
   }
+
+  @Override
+  public Mono<CreditProduct> findCreditCardByAccountNumber(String accountNumber) {
+    final String errorMessage = getMsg("credit.card.not.found", accountNumber);
+    return this.webClient.get()
+        .uri("/card/account/{number}", accountNumber)
+        .retrieve()
+        .onStatus(HttpStatus::is4xxClientError,
+            clientResponse -> this.applyError4xx(clientResponse, errorMessage))
+        .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
+        .bodyToMono(CreditProduct.class)
+        .map(setCreditProductType(CreditProductType.CREDIT_CARD))
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
+  }
+
+  private Function<CreditProduct, CreditProduct> setCreditProductType(CreditProductType credit) {
+    return (creditProduct) -> {
+      creditProduct.setCreditProductType(credit);
+      return creditProduct;
+    };
+  }
+
 
   private Mono<? extends Throwable> applyError4xx(final ClientResponse clientResponse,
                                                   final String errorMessage) {

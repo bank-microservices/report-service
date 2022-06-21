@@ -21,32 +21,47 @@ public class ReportController {
 
   private final ReportService reportService;
 
-  @GetMapping("/balance/credit/{accountNumber}")
-  public Mono<ResponseEntity<BalanceDto>> getBalanceCredit(@PathVariable String accountNumber) {
+  @GetMapping("/balance/credit/{account-number}")
+  public Mono<ResponseEntity<BalanceDto>> getBalanceCredit(
+      @PathVariable("account-number") String accountNumber) {
+
     log.info("get Balance Credit by accountNumber: {}", accountNumber);
     return reportService.getBalanceCredit(accountNumber)
         .map(ResponseEntity::ok)
         .defaultIfEmpty(ResponseEntity.notFound().build());
   }
 
-  @GetMapping("/balance/account/{accountNumber}")
-  public Mono<ResponseEntity<BalanceDto>> getBalanceAccount(@PathVariable String accountNumber) {
+  @GetMapping("/balance/card/{account-number}")
+  public Mono<ResponseEntity<BalanceDto>> getBalanceCreditCard(
+      @PathVariable("account-number") String accountNumber) {
+
+    log.info("get Balance Credit Card by accountNumber: {}", accountNumber);
+    return reportService.getBalanceCreditCard(accountNumber)
+        .map(ResponseEntity::ok)
+        .defaultIfEmpty(ResponseEntity.notFound().build());
+  }
+
+  @GetMapping("/balance/account/{account-number}")
+  public Mono<ResponseEntity<BalanceDto>> getBalanceAccount(
+      @PathVariable("account-number") String accountNumber) {
     log.info("get Balance Account by accountNumber: {}", accountNumber);
     return reportService.getBalanceAccount(accountNumber)
         .map(ResponseEntity::ok)
         .defaultIfEmpty(ResponseEntity.notFound().build());
   }
 
-  @GetMapping("/movement/credit/{accountNumber}")
-  public Flux<MovementDto> findAllCreditMovements(@PathVariable String accountNumber) {
+  @GetMapping("/transaction/credit/{account-number}")
+  public Flux<MovementDto> findAllTransactionsCredit(
+      @PathVariable("account-number") String accountNumber) {
     log.info("find Movements Credit by accountNumber: {}", accountNumber);
-    return reportService.findAllCreditMovementsByAccountNumber(accountNumber);
+    return reportService.findAllTransactionsCreditByAccountNumber(accountNumber);
   }
 
-  @GetMapping("/movement/account/{accountNumber}")
-  public Flux<MovementDto> findAllAccountMovements(@PathVariable String accountNumber) {
+  @GetMapping("/transaction/account/{account-number}")
+  public Flux<MovementDto> findAllAccountMovements(
+      @PathVariable("account-number") String accountNumber) {
     log.info("find Movements Account by accountNumber: {}", accountNumber);
-    return reportService.findAllAccountMovementsByAccountNumber(accountNumber);
+    return reportService.findAllTransactionsAccountByAccountNumber(accountNumber);
   }
 
 }

@@ -6,6 +6,7 @@ import com.nttdata.microservices.report.entity.client.Client;
 import com.nttdata.microservices.report.exception.ClientException;
 import com.nttdata.microservices.report.proxy.ClientProxy;
 import com.nttdata.microservices.report.util.RestUtils;
+import java.time.Duration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
 
 /**
  * Class responsible for communicating with the Client Microservice.
@@ -40,7 +42,7 @@ public class ClientProxyImpl implements ClientProxy {
             clientResponse -> this.applyError4xx(clientResponse, errorMessage))
         .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
         .bodyToMono(Client.class)
-        .log();
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
   }
 
   @Override
@@ -52,7 +54,8 @@ public class ClientProxyImpl implements ClientProxy {
         .onStatus(HttpStatus::is4xxClientError,
             clientResponse -> this.applyError4xx(clientResponse, errorMessage))
         .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
-        .bodyToMono(Client.class);
+        .bodyToMono(Client.class)
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
   }
 
   private Mono<? extends Throwable> applyError4xx(final ClientResponse clientResponse,

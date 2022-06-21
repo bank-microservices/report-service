@@ -1,22 +1,22 @@
 package com.nttdata.microservices.report.entity.transaction;
 
-import com.nttdata.microservices.report.entity.credit.Credit;
-import com.nttdata.microservices.report.entity.credit.CreditCard;
+import com.nttdata.microservices.report.entity.credit.CreditProduct;
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 public class Consumption {
 
   private String id;
   private String transactionCode;
   private Double amount;
-  private CreditCard creditCard;
-  private Credit credit;
+  private CreditProduct creditCard;
   private LocalDateTime registerDate;
 
 }
