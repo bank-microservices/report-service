@@ -1,6 +1,7 @@
 package com.nttdata.microservices.report.controller;
 
-import com.nttdata.microservices.report.service.ReportService;
+import com.nttdata.microservices.report.service.AccountReportService;
+import com.nttdata.microservices.report.service.CreditReportService;
 import com.nttdata.microservices.report.service.dto.BalanceDto;
 import com.nttdata.microservices.report.service.dto.MovementDto;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +20,15 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/v1/report")
 public class ReportController {
 
-  private final ReportService reportService;
+  private final AccountReportService accountReportService;
+  private final CreditReportService creditReportService;
 
   @GetMapping("/balance/credit/{account-number}")
   public Mono<ResponseEntity<BalanceDto>> getBalanceCredit(
       @PathVariable("account-number") String accountNumber) {
 
     log.info("get Balance Credit by accountNumber: {}", accountNumber);
-    return reportService.getBalanceCredit(accountNumber)
+    return creditReportService.getBalanceCredit(accountNumber)
         .map(ResponseEntity::ok)
         .defaultIfEmpty(ResponseEntity.notFound().build());
   }
@@ -36,7 +38,7 @@ public class ReportController {
       @PathVariable("account-number") String accountNumber) {
 
     log.info("get Balance Credit Card by accountNumber: {}", accountNumber);
-    return reportService.getBalanceCreditCard(accountNumber)
+    return creditReportService.getBalanceCreditCard(accountNumber)
         .map(ResponseEntity::ok)
         .defaultIfEmpty(ResponseEntity.notFound().build());
   }
@@ -45,7 +47,7 @@ public class ReportController {
   public Mono<ResponseEntity<BalanceDto>> getBalanceAccount(
       @PathVariable("account-number") String accountNumber) {
     log.info("get Balance Account by accountNumber: {}", accountNumber);
-    return reportService.getBalanceAccount(accountNumber)
+    return accountReportService.getBalanceAccount(accountNumber)
         .map(ResponseEntity::ok)
         .defaultIfEmpty(ResponseEntity.notFound().build());
   }
@@ -54,14 +56,14 @@ public class ReportController {
   public Flux<MovementDto> findAllTransactionsCredit(
       @PathVariable("account-number") String accountNumber) {
     log.info("find Movements Credit by accountNumber: {}", accountNumber);
-    return reportService.findAllTransactionsCreditByAccountNumber(accountNumber);
+    return creditReportService.findAllTransactionsCreditByAccountNumber(accountNumber);
   }
 
   @GetMapping("/transaction/account/{account-number}")
   public Flux<MovementDto> findAllAccountMovements(
       @PathVariable("account-number") String accountNumber) {
     log.info("find Movements Account by accountNumber: {}", accountNumber);
-    return reportService.findAllTransactionsAccountByAccountNumber(accountNumber);
+    return accountReportService.findAllTransactionsAccountByAccountNumber(accountNumber);
   }
 
 }
