@@ -36,7 +36,7 @@ public class ClientProxyImpl implements ClientProxy {
   public final Mono<Client> getClientByDocumentNumber(final String documentNumber) {
     String errorMessage = getMsg("client.document.number.not.available", documentNumber);
     return this.webClient.get()
-        .uri("/documentNumber/{number}", documentNumber)
+        .uri("/document-number/{number}", documentNumber)
         .retrieve()
         .onStatus(HttpStatus::is4xxClientError,
             clientResponse -> this.applyError4xx(clientResponse, errorMessage))

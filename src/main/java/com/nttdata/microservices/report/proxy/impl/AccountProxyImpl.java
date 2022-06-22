@@ -84,6 +84,20 @@ public class AccountProxyImpl implements AccountProxy {
 
   }
 
+  @Override
+  public Flux<Account> findByClientDocument(String documentNumber) {
+    String errorMessage = getMsg("account.not.found.for.client", documentNumber);
+
+    return this.webClient.get()
+        .uri("/client-document/{documentNumber}", documentNumber)
+        .retrieve()
+        .onStatus(HttpStatus::is4xxClientError,
+            clientResponse -> this.applyError4xx(clientResponse, errorMessage))
+        .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
+        .bodyToFlux(Account.class)
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
+  }
+
   private Mono<? extends Throwable> applyError4xx(final ClientResponse creditResponse,
                                                   final String errorMessage) {
     log.info(STATUS_CODE, creditResponse.statusCode().value());

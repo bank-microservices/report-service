@@ -1,9 +1,11 @@
 package com.nttdata.microservices.report.controller;
 
 import com.nttdata.microservices.report.service.AccountReportService;
+import com.nttdata.microservices.report.service.CommonReportService;
 import com.nttdata.microservices.report.service.CreditReportService;
 import com.nttdata.microservices.report.service.dto.BalanceDto;
 import com.nttdata.microservices.report.service.dto.MovementDto;
+import com.nttdata.microservices.report.service.dto.ProductDto;
 import com.nttdata.microservices.report.service.dto.ProductFeeDto;
 import com.nttdata.microservices.report.util.validator.ValidDate;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,15 @@ public class ReportController {
 
   private final AccountReportService accountReportService;
   private final CreditReportService creditReportService;
+  private final CommonReportService commonReportService;
+
+  @GetMapping("/client/{document-number}")
+  public Flux<ProductDto> findAllBankProduct(
+      @PathVariable("document-number") String documentNumber) {
+
+    log.info("find all Bank Product by documentNumber: {}", documentNumber);
+    return commonReportService.findAllBankProductByClientDocument(documentNumber);
+  }
 
   @GetMapping("/balance/credit/{account-number}")
   public Mono<ResponseEntity<BalanceDto>> getBalanceCredit(
@@ -72,9 +83,9 @@ public class ReportController {
 
   @GetMapping("/transaction/date-range/{date-from}/{date-to}")
   public Flux<ProductFeeDto> findByDateRange(@PathVariable("date-from")
-                                                 @ValidDate String dateFrom,
+                                             @ValidDate String dateFrom,
                                              @PathVariable("date-to")
-                                                 @ValidDate String dateTo) {
+                                             @ValidDate String dateTo) {
     return accountReportService.findTransactionFeeAccountsByRangeDate(dateFrom, dateTo);
   }
 

@@ -14,4 +14,6 @@ public class Client {
   private String documentNumber;
   private String firstNameBusiness;
   private String surnames;
+  private ClientType clientType;
+  private ClientProfile clientProfile;
 }

@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.retry.Retry;
 
@@ -34,6 +35,20 @@ public class CreditProductProxyImpl implements CreditProductProxy {
   @Override
   public final Mono<CreditProduct> findCreditByAccountNumber(final String accountNumber) {
     return getCreditMono("/account-number/{number}", accountNumber);
+  }
+
+  @Override
+  public Flux<CreditProduct> findCreditByClientDocument(String documentNumber) {
+    final String errorMessage = getMsg("credit.not.available", documentNumber);
+    return this.webClient.get()
+        .uri("/client-document/{document-number}", documentNumber)
+        .retrieve()
+        .onStatus(HttpStatus::is4xxClientError,
+            clientResponse -> this.applyError4xx(clientResponse, errorMessage))
+        .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
+        .bodyToFlux(CreditProduct.class)
+        .map(setCreditProductType(CreditProductType.CREDIT))
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
   }
 
   private Mono<CreditProduct> getCreditMono(final String uri, final String findValue) {
@@ -63,13 +78,26 @@ public class CreditProductProxyImpl implements CreditProductProxy {
         .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
   }
 
+  @Override
+  public Flux<CreditProduct> findCreditCardByClientDocument(String documentNumber) {
+    final String errorMessage = getMsg("credit.not.available", documentNumber);
+    return this.webClient.get()
+        .uri("/card/client/{number}", documentNumber)
+        .retrieve()
+        .onStatus(HttpStatus::is4xxClientError,
+            clientResponse -> this.applyError4xx(clientResponse, errorMessage))
+        .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
+        .bodyToFlux(CreditProduct.class)
+        .map(setCreditProductType(CreditProductType.CREDIT_CARD))
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
+  }
+
   private Function<CreditProduct, CreditProduct> setCreditProductType(CreditProductType credit) {
     return (creditProduct) -> {
       creditProduct.setCreditProductType(credit);
       return creditProduct;
     };
   }
-
 
   private Mono<? extends Throwable> applyError4xx(final ClientResponse clientResponse,
                                                   final String errorMessage) {

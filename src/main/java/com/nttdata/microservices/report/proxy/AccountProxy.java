@@ -13,4 +13,6 @@ public interface AccountProxy {
 
   Mono<AccountType> findAccountTypeById(String accountTypeId);
 
+  Flux<Account> findByClientDocument(String documentNumber);
+
 }
