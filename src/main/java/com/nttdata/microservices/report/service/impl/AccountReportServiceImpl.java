@@ -3,6 +3,7 @@ package com.nttdata.microservices.report.service.impl;
 import static com.nttdata.microservices.report.util.MessageUtils.getMsg;
 
 import com.nttdata.microservices.report.entity.account.Account;
+import com.nttdata.microservices.report.entity.account.AccountType;
 import com.nttdata.microservices.report.entity.transaction.Transaction;
 import com.nttdata.microservices.report.exception.AccountException;
 import com.nttdata.microservices.report.proxy.AccountProxy;
@@ -11,8 +12,11 @@ import com.nttdata.microservices.report.service.AccountReportService;
 import com.nttdata.microservices.report.service.dto.BalanceDto;
 import com.nttdata.microservices.report.service.dto.MovementDto;
 import com.nttdata.microservices.report.service.dto.MovementType;
+import com.nttdata.microservices.report.service.dto.ProductFeeDto;
+import com.nttdata.microservices.report.util.Sum;
 import java.util.Comparator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -21,6 +25,7 @@ import reactor.core.scheduler.Schedulers;
 /**
  * Class responsible for communicating with the Credit, Account and Transaction Microservices.
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AccountReportServiceImpl implements AccountReportService {
@@ -78,6 +83,30 @@ public class AccountReportServiceImpl implements AccountReportService {
         )
         .sort(Comparator.comparing(MovementDto::getRegisterDate))
         .subscribeOn(Schedulers.boundedElastic());
+  }
+
+  @Override
+  public Flux<ProductFeeDto> findTransactionFeeAccountsByRangeDate(String dateFrom,
+                                                                   String dateTo) {
+    return transactionProxy.findByDateRange(dateFrom, dateTo)
+        .groupBy(transaction -> new AccountType(
+            transaction.getAccount().getAccountType().getId(),
+            transaction.getAccount().getAccountType().getCode()))
+        .flatMap(keyGroup -> keyGroup
+            .map(Transaction::getTransactionFee)
+            .reduce(Sum.empty(), Sum::add)
+            .map(sum -> ProductFeeDto.builder()
+                .totalFee(sum.getValue())
+                .accountType(new AccountType(keyGroup.key().getId(), keyGroup.key().getCode()))
+                .build()))
+        .flatMap(this::findAccountTypeById)
+        .sort(Comparator.comparing(ProductFeeDto::getTotalFee));
+  }
+
+  private Mono<ProductFeeDto> findAccountTypeById(ProductFeeDto feeDto) {
+    return accountProxy.findAccountTypeById(feeDto.getAccountType().getId())
+        .doOnNext(feeDto::setAccountType)
+        .thenReturn(feeDto);
   }
 
   /**

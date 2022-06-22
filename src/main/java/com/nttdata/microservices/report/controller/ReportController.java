@@ -4,9 +4,12 @@ import com.nttdata.microservices.report.service.AccountReportService;
 import com.nttdata.microservices.report.service.CreditReportService;
 import com.nttdata.microservices.report.service.dto.BalanceDto;
 import com.nttdata.microservices.report.service.dto.MovementDto;
+import com.nttdata.microservices.report.service.dto.ProductFeeDto;
+import com.nttdata.microservices.report.util.validator.ValidDate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +20,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
+@Validated
 @RequestMapping("/api/v1/report")
 public class ReportController {
 
@@ -64,6 +68,14 @@ public class ReportController {
       @PathVariable("account-number") String accountNumber) {
     log.info("find Movements Account by accountNumber: {}", accountNumber);
     return accountReportService.findAllTransactionsAccountByAccountNumber(accountNumber);
+  }
+
+  @GetMapping("/transaction/date-range/{date-from}/{date-to}")
+  public Flux<ProductFeeDto> findByDateRange(@PathVariable("date-from")
+                                                 @ValidDate String dateFrom,
+                                             @PathVariable("date-to")
+                                                 @ValidDate String dateTo) {
+    return accountReportService.findTransactionFeeAccountsByRangeDate(dateFrom, dateTo);
   }
 
 }

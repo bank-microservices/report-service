@@ -1,14 +1,16 @@
 package com.nttdata.microservices.report.entity.account;
 
 import com.nttdata.microservices.report.entity.client.Client;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class Account {
 
@@ -21,4 +23,5 @@ public class Account {
   private Integer maxLimitMonthlyMovements;
   private AccountType accountType;
   private Client client;
+
 }

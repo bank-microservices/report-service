@@ -3,6 +3,7 @@ package com.nttdata.microservices.report.proxy.impl;
 import static com.nttdata.microservices.report.util.MessageUtils.getMsg;
 
 import com.nttdata.microservices.report.entity.account.Account;
+import com.nttdata.microservices.report.entity.account.AccountType;
 import com.nttdata.microservices.report.exception.AccountException;
 import com.nttdata.microservices.report.proxy.AccountProxy;
 import com.nttdata.microservices.report.util.RestUtils;
@@ -36,8 +37,10 @@ public class AccountProxyImpl implements AccountProxy {
   public final Flux<Account> findByAccountNumberAndClientDocument(final String accountNumber,
                                                                   final String documentNumber) {
 
-    Map<String, String> params =
-        Map.of("accountNumber", accountNumber, "documentNumber", documentNumber);
+    Map<String, String> params = Map
+        .of("accountNumber", accountNumber,
+            "documentNumber", documentNumber);
+
     String errorMessage = getMsg("account.not.available.for.client", params.values().toArray());
 
     return this.webClient.get()
@@ -63,6 +66,22 @@ public class AccountProxyImpl implements AccountProxy {
         .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
         .bodyToMono(Account.class)
         .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
+  }
+
+  @Override
+  public Mono<AccountType> findAccountTypeById(String accountTypeId) {
+
+    String errorMessage = getMsg("account.type.not.available", accountTypeId);
+
+    return this.webClient.get()
+        .uri("/type/{id}", accountTypeId)
+        .retrieve()
+        .onStatus(HttpStatus::is4xxClientError,
+            clientResponse -> this.applyError4xx(clientResponse, errorMessage))
+        .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
+        .bodyToMono(AccountType.class)
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
+
   }
 
   private Mono<? extends Throwable> applyError4xx(final ClientResponse creditResponse,

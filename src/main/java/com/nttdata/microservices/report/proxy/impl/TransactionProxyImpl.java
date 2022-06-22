@@ -9,6 +9,7 @@ import com.nttdata.microservices.report.exception.TransactionException;
 import com.nttdata.microservices.report.proxy.TransactionProxy;
 import com.nttdata.microservices.report.util.RestUtils;
 import java.time.Duration;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -63,6 +64,22 @@ public class TransactionProxyImpl implements TransactionProxy {
     String errorMessage = getMsg("transaction.account.not.available", accountId);
     return this.webClient.get()
         .uri("/account/{account-id}", accountId)
+        .retrieve()
+        .onStatus(HttpStatus::is4xxClientError,
+            clientResponse -> this.applyError4xx(clientResponse, errorMessage))
+        .onStatus(HttpStatus::is5xxServerError, this::applyError5xx)
+        .bodyToFlux(Transaction.class)
+        .retryWhen(Retry.fixedDelay(2, Duration.ofSeconds(2)));
+  }
+
+  @Override
+  public Flux<Transaction> findByDateRange(String from, String to) {
+    String errorMessage = getMsg("transaction.range.date.not.available", from, to);
+    Map<String, String> params = Map
+        .of("date-from", from,
+            "date-to", to);
+    return this.webClient.get()
+        .uri("/date-range/{date-from}/{date-to}", params)
         .retrieve()
         .onStatus(HttpStatus::is4xxClientError,
             clientResponse -> this.applyError4xx(clientResponse, errorMessage))

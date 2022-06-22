@@ -1,12 +1,12 @@
 package com.nttdata.microservices.report.exceptionhandler;
 
-
 import com.nttdata.microservices.report.exception.AccountException;
 import com.nttdata.microservices.report.exception.BadRequestException;
 import com.nttdata.microservices.report.exception.ClientException;
 import com.nttdata.microservices.report.exception.CreditNotFoundException;
 import com.nttdata.microservices.report.exception.DataValidationException;
 import java.util.stream.Collectors;
+import javax.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -63,5 +63,10 @@ public class GlobalErrorHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
   }
 
+  @ExceptionHandler(ConstraintViolationException.class)
+  public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
+    log.info("ConstraintViolationException : {}", e.getMessage(), e);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+  }
 
 }

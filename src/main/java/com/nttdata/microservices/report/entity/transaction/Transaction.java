@@ -15,9 +15,10 @@ public class Transaction {
 
   private String id;
   private String transactionCode;
-  private TransactionType transactionType;
   private Double amount;
+  private Double transactionFee;
   private Account account;
   private LocalDateTime registerDate;
+  private TransactionType transactionType;
 
 }

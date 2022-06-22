@@ -12,4 +12,7 @@ public interface TransactionProxy {
   Flux<Payment> findPaymentByCreditId(String creditId);
 
   Flux<Transaction> findTransactionByAccountId(String accountId);
+
+  Flux<Transaction> findByDateRange(String dateFrom, String dateTo);
+
 }
