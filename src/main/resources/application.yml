@@ -1,14 +1,3 @@
-server:
-  port: 8085
-
-spring:
-  messages:
-    basename: i18n/messages
-    fallback-to-system-locale: true
-    use-code-as-default-message: true
-  jackson:
-    default-property-inclusion: non_null
-
 service:
   client:
     uri: http://localhost:8081/api/v1/client
