@@ -26,8 +26,9 @@ public class CreditProductProxyImpl implements CreditProductProxy {
   private static final String STATUS_CODE = "Status code : {}";
   private final WebClient webClient;
 
-  public CreditProductProxyImpl(@Value("${service.credit.uri}") final String url) {
-    this.webClient = WebClient.builder()
+  public CreditProductProxyImpl(@Value("${service.credit.uri}") final String url,
+                                WebClient.Builder loadBalancedWebClientBuilder) {
+    this.webClient = loadBalancedWebClientBuilder
         .clientConnector(RestUtils.getDefaultClientConnector())
         .baseUrl(url).build();
   }

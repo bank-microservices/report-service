@@ -26,10 +26,12 @@ public class ClientProxyImpl implements ClientProxy {
   private static final String STATUS_CODE = "Status code : {}";
   private final WebClient webClient;
 
-  public ClientProxyImpl(@Value("${service.client.uri}") final String url) {
-    this.webClient = WebClient.builder()
+  public ClientProxyImpl(@Value("${service.client.uri}") final String url,
+                         WebClient.Builder loadBalancedWebClientBuilder) {
+    this.webClient = loadBalancedWebClientBuilder
         .clientConnector(RestUtils.getDefaultClientConnector())
-        .baseUrl(url).build();
+        .baseUrl(url)
+        .build();
   }
 
   @Override

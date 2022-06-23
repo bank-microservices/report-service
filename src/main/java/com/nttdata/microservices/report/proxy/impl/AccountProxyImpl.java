@@ -27,10 +27,12 @@ public class AccountProxyImpl implements AccountProxy {
 
   private final WebClient webClient;
 
-  public AccountProxyImpl(@Value("${service.account.uri}") final String url) {
-    this.webClient = WebClient.builder()
+  public AccountProxyImpl(@Value("${service.account.uri}") final String url,
+                          WebClient.Builder loadBalancedWebClientBuilder) {
+    this.webClient = loadBalancedWebClientBuilder
         .clientConnector(RestUtils.getDefaultClientConnector())
-        .baseUrl(url).build();
+        .baseUrl(url)
+        .build();
   }
 
   @Override
